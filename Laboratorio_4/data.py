@@ -5,12 +5,12 @@ import matplotlib.pyplot as mpl
 
 dataframe = pd.read_csv('ventas.csv')
 
-#revenue calculado con pandas(ventas - gastos)  creando una nueva columna con el nombre revenue.
+#revenue calculado con pandas(ventas - gastos)  creando una nueva columna con el nombre Ganancias.
 
-dataresult= dataframe.assign(Revenue= dataframe["Ventas"] - dataframe["Gastos"])
+dataresult= dataframe.assign(Ganancia= dataframe["Ventas"] - dataframe["Gastos"])
 print(dataresult)
 
-# Codigo de grafico con matplotlib que indica el tamaño, los nombres, labels, eje x y y.
+# Codigo de grafico con matplotlib que indica el tamaño, leyenda, los nombres, labels, eje x y y.
 
 mpl.figure(figsize=(8,8))
 mpl.plot(dataframe["Mes"], dataframe["Ventas"], label="Ventas")
