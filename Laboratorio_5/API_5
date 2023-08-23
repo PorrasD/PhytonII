@@ -1,0 +1,36 @@
+import requests
+import re
+import matplotlib.pyplot as plt
+
+# Solicitud a la API
+url = "https://api.themoviedb.org/3/discover/movie"
+params = {
+    "api_key": "ed7dacd0197eb9cbbef681091b242a21", 
+    "sort_by": "popularity.desc"
+}
+response = requests.get(url, params=params)
+data = response.json()
+
+# Filtrar películas con año de lanzamiento posterior a 2000
+movies_after_2000 = [movie for movie in data['results'] if int(movie['release_date'][:4]) > 2000]
+
+# Encontrar películas con la palabra "Action" en el título usando expresiones regulares
+movie_name= "Action"
+action_movies = [movie for movie in movies_after_2000 if str(re.search(movie_name, movie['title'], re.IGNORECASE))]
+
+# Obtener rating de películas "Action"
+ratings = [movie['vote_average'] for movie in action_movies]
+
+# Gráfico de distribución de calificaciones
+plt.figure(figsize=(10, 6))
+plt.hist(ratings, bins=10, edgecolor='black', alpha=0.7)
+plt.xlabel('Rating Pelicula')
+plt.ylabel('Cantidad de Películas')
+plt.title('Calificaciones de Películas que contienen la palabra "Acción" en el titulo')
+plt.show()
+
+
+
+
+
+
